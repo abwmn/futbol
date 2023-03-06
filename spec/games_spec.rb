@@ -72,4 +72,37 @@ RSpec.describe Games do
                                                      '20172018'=>1355})
     end
   end
+  describe 'seasonal_summary' do
+    it 'seasonal_summary' do
+      expect(@games.seasonal_summary('1')).to be_a(Hash)
+      expect(@games.seasonal_summary('1')['20122013'][:regular_season]).to eq({
+        :average_goals_against=>1.96, 
+        :average_goals_scored=>1.96, 
+        :games=>48, 
+        :total_goals_against=>94, 
+        :total_goals_scored=>94, 
+        :win_percentage=>0.333, 
+        :wins=>16})
+      expect(@games.seasonal_summary('54')['20172018'][:regular_season]).to eq({
+        :average_goals_against=>2.21, 
+        :average_goals_scored=>2.34, 
+        :games=>82, 
+        :total_goals_against=>181, 
+        :total_goals_scored=>192, 
+        :win_percentage=>0.476, 
+        :wins=>39})
+      expect(@games.seasonal_summary('54')['20172018'][:postseason]).to eq({
+        :average_goals_against=>1.75, 
+        :average_goals_scored=>2.35, 
+        :games=>20, 
+        :total_goals_against=>35, 
+        :total_goals_scored=>47, 
+        :win_percentage=>0.6, 
+        :wins=>12})
+
+      expect(@games.seasonal_summary('54')['20172018'][:regular_season][:total_goals_scored]).to eq(192)
+      expect(@games.seasonal_summary('54')['20172018'][:regular_season][:total_goals_against]).to eq(181)
+      expect(@games.seasonal_summary('54')['20172018'][:regular_season][:wins]).to eq(39)
+    end
+  end
 end

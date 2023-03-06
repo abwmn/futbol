@@ -105,8 +105,4 @@ class GameTeams < StatReader
     end
     h2h
   end
-
-  def seasonal_summary(team)
-
-  end
 end

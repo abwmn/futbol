@@ -51,6 +51,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
 
+    it 'count_of_teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+
     it 'best_offense' do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
@@ -166,6 +170,29 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.head_to_head("24")["Reign FC"][:win_pct]).to be_a(Float)
       expect(@stat_tracker.head_to_head("18")["Utah Royals FC"][:win_pct]).to eq(0.6)
       expect(@stat_tracker.head_to_head("30")["Atlanta United"]).to eq(atl_expected)
+    end
+  end
+
+  describe 'seasonal_summary' do
+    it 'seasonal_summary' do
+      expect(@stat_tracker.seasonal_summary('1')).to be_a(Hash)
+      expect(@stat_tracker.seasonal_summary('1')['20122013'][:regular_season]).to eq({:average_goals_against=>1.96, 
+      :average_goals_scored=>1.96, 
+      :games=>48, 
+      :total_goals_against=>94, 
+      :total_goals_scored=>94, 
+      :win_percentage=>0.333, 
+      :wins=>16})
+
+      expect(@stat_tracker.seasonal_summary('54')['20172018'][:postseason]).to eq({
+        :average_goals_against=>1.75, 
+        :average_goals_scored=>2.35, 
+        :games=>20, 
+        :total_goals_against=>35, 
+        :total_goals_scored=>47, 
+        :win_percentage=>0.6, 
+        :wins=>12})
+    
     end
   end
 end

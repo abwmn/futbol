@@ -19,4 +19,8 @@ class League < StatReader
       'link' => @link[index]
     }
   end
+  
+  def count_of_teams
+    @team_id.count
+  end
 end
