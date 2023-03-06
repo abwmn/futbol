@@ -80,4 +80,37 @@ class GameTeams < StatBook
     end
     wins.fdiv(games).round(2)
   end
+
+  def favorite_opponent(team)
+    rivalries(team)[:fav_opp]
+  end
+
+  def rival(team)
+    rivalries(team)[:rival]
+  end
+
+  def biggest_team_blowout(team)
+    matchups[team][:blowouts][:boom]
+  end
+
+  def worst_loss(team)
+    matchups[team][:blowouts][:bust]
+  end
+
+  def head_to_head(team)
+    h2h = matchups[team]
+    h2h.delete(:blowouts)
+    h2h.each do |_, record|
+      record[:win_pct] = record[:wins].fdiv(record[:games]).round(3)
+    end
+    h2h
+  end
+
+  # Record (as a hash - win/loss) against all 
+  #opponents with the opponents’ names as keys and 
+  #the win percentage against that opponent as a value.	Hash
+
+  def seasonal_summary(team)
+
+  end
 end

@@ -130,4 +130,47 @@ module GameTeamsHelper
     end
     {:best_team => best_team, :worst_team => worst_team}
   end
+
+  def matchups
+    h2h = super_nested_hash
+    (0..hero).step(2).each do |duo|
+      du0, du1 = team[duo], team[duo+1]
+      diff = @goals[duo].to_i - @goals[duo+1].to_i
+      h2h[du0][:blowouts] ||= {boom: 0, bust: 0}
+      h2h[du1][:blowouts] ||= {boom: 0, bust: 0}
+      if @result[duo] == 'WIN'
+        h2h[du0][du1][:wins] += 1
+        h2h[du1][du0][:loss] += 1
+        h2h[du0][:blowouts][:boom] = diff if diff > h2h[du0][:blowouts][:boom]
+        h2h[du1][:blowouts][:bust] = diff if diff > h2h[du1][:blowouts][:bust]
+      elsif @result[duo] == 'LOSS'
+        h2h[du0][du1][:loss] += 1
+        h2h[du1][du0][:wins] += 1
+        h2h[du0][:blowouts][:bust] = -diff if -diff > h2h[du0][:blowouts][:bust]
+        h2h[du1][:blowouts][:boom] = -diff if -diff > h2h[du1][:blowouts][:boom]
+      else
+        h2h[du0][du1][:draws] += 1
+        h2h[du1][du0][:draws] += 1
+      end
+      h2h[du0][du1][:games] += 1
+      h2h[du1][du0][:games] += 1
+    end
+    h2h
+  end
+
+  def rivalries(team)
+    best_opp_record, worst_opp_record = 0, 1
+    rival, fav_opp = nil, nil
+    matchups[team].each do |opp|
+      opp_win_pct = opp[1][:loss].fdiv(opp[1][:games])
+      if opp_win_pct < worst_opp_record
+        worst_opp_record = opp_win_pct
+        fav_opp = opp[0]
+      elsif opp_win_pct > best_opp_record
+        best_opp_record = opp_win_pct
+        rival = opp[0]
+      end
+    end
+    {:fav_opp => fav_opp, :rival => rival}
+  end
 end

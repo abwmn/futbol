@@ -119,23 +119,26 @@ class StatTracker
   end
 
   def favorite_opponent(team)
-
+    get_teamname(@game_teams.favorite_opponent(team))
   end
 
   def rival(team)
-
+    get_teamname(@game_teams.rival(team))
   end
 
   def biggest_team_blowout(team)
-
+    @game_teams.biggest_team_blowout(team)
   end
 
   def worst_loss(team)
-
+    @game_teams.worst_loss(team)
   end
 
   def head_to_head(team)
-
+    h2h = @game_teams.head_to_head(team)
+    h2h.transform_keys do |team|
+      get_teamname(team)
+    end
   end
 
   def seasonal_summary(team)
@@ -144,20 +147,12 @@ class StatTracker
 
   # Helper method
 
-  def get_teamname(method)
-    index = @teams.team_id.find_index(method)
+  def get_teamname(team)
+    index = @teams.team_id.find_index(team)
     @teams.teamname[index]
   end
 end
 
-# favorite_opponent	
-    # Name of the opponent that has the lowest win percentage against the given team.	String
-# rival	
-    # Name of the opponent that has the highest win percentage against the given team.	String
-# biggest_team_blowout	
-    # Biggest difference between team goals and opponent goals for a win for the given team.	Integer
-# worst_loss	
-    # Biggest difference between team goals and opponent goals for a loss for the given team.	Integer
 # head_to_head	
     # Record (as a hash - win/loss) against all opponents with the opponents’ names as keys and the win percentage against that opponent as a value.	Hash
 # seasonal_summary	
