@@ -161,6 +161,9 @@
           null,
           null,
           null,
+          null,
+          null,
+          null,
           null
         ]
       },
@@ -258,7 +261,7 @@
           1
         ]
       },
-      "/Users/andrewbowman/turing_work/1mod/project_futbol/futbol/lib/stat_book.rb": {
+      "/Users/andrewbowman/turing_work/1mod/project_futbol/futbol/lib/stat_reader.rb": {
         "lines": [
           1,
           null,
@@ -321,10 +324,6 @@
           2,
           null,
           2,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           null,
@@ -442,10 +441,6 @@
           124,
           null,
           4,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           1,
@@ -920,6 +915,6 @@
         ]
       }
     },
-    "timestamp": 1678102039
+    "timestamp": 1678105144
   }
 }

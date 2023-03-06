@@ -1,6 +1,6 @@
 require_relative 'requirements'
 
-class Games < StatBook
+class Games < StatReader
   include Hashable
   include Callable
 

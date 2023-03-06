@@ -1,7 +1,7 @@
 require_relative 'requirements'
 require_relative 'game_teams_helper'
 
-class GameTeams < StatBook
+class GameTeams < StatReader
   include GameTeamsHelper
 
   def initialize(locations)

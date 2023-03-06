@@ -1,6 +1,6 @@
 require_relative 'requirements'
 
-class League < StatBook
+class League < StatReader
   attr_reader :team_id,
               :teamname
   
