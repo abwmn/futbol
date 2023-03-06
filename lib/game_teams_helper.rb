@@ -1,5 +1,4 @@
-require_relative 'hashable'
-require_relative 'callable'
+require_relative 'requirements'
 
 module GameTeamsHelper
   include Hashable

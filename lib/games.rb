@@ -1,7 +1,7 @@
-require_relative 'stat_book'
-require_relative 'callable'
+require_relative 'requirements'
 
 class Games < StatBook
+  include Hashable
   include Callable
 
   def initialize(locations)
@@ -11,8 +11,8 @@ class Games < StatBook
 
   def highest_total_score
     max = 0
-    @game_id.each_with_index do |_, i|
-      total = @home_goals[i].to_i + @away_goals[i].to_i
+    szn.each_with_index do |_, s|
+      total = @home_goals[s].to_i + @away_goals[s].to_i
       max = [max, total].max
     end
     max
@@ -20,23 +20,20 @@ class Games < StatBook
   
   def lowest_total_score
     min = 10
-    (0..hero).each do |i|
-      score = @home_goals[i].to_i + @away_goals[i].to_i
+    (0..hero).each do |s|
+      score = @home_goals[s].to_i + @away_goals[s].to_i
       min = [min, score].min
     end
     min
   end
 
   def average_goals_by_season
-    avg_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
-    (0..hero).each do |i|
-      season = @season[i]; goals = @home_goals[i].to_i + @away_goals[i].to_i
+    avg_goals = nested_hash
+    (0..hero).each do |s|
+      season = @season[s]; goals = @home_goals[s].to_i + @away_goals[s].to_i
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
-
-    # avg_goals.delete(nil)
-
     avg_goals.transform_values do |season| 
       season[:goals].fdiv(season[:games]).round(2) 
     end
