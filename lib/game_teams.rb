@@ -36,7 +36,7 @@ class GameTeams < StatBook
     tackle_checker(season)[:best_team]
   end
 
-  def least_tackles(season)
+  def fewest_tackles(season)
     tackle_checker(season)[:worst_team]
   end
 

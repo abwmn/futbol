@@ -164,30 +164,30 @@ RSpec.describe GameTeams do
       expect(@game_teams.most_tackles('20172018')).to eq("15")
     end
 
-    it 'least_tackles' do
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20122013'))
+    it 'fewest_tackles' do
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20122013'))
       expect(@teams.teamname[index]).to eq("Atlanta United")
-      expect(@game_teams.least_tackles('20122013')).to eq("1")
+      expect(@game_teams.fewest_tackles('20122013')).to eq("1")
       
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20132014'))
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20132014'))
       expect(@teams.teamname[index]).to eq("Atlanta United")
-      expect(@game_teams.least_tackles('20132014')).to eq("1")
+      expect(@game_teams.fewest_tackles('20132014')).to eq("1")
       
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20142015'))
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20142015'))
       expect(@teams.teamname[index]).to eq("Orlando City SC")
-      expect(@game_teams.least_tackles('20142015')).to eq("30")
+      expect(@game_teams.fewest_tackles('20142015')).to eq("30")
       
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20152016'))
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20152016'))
       expect(@teams.teamname[index]).to eq("Montreal Impact")
-      expect(@game_teams.least_tackles('20152016')).to eq("23")
+      expect(@game_teams.fewest_tackles('20152016')).to eq("23")
       
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20162017'))
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20162017'))
       expect(@teams.teamname[index]).to eq("New England Revolution")
-      expect(@game_teams.least_tackles('20162017')).to eq("16")
+      expect(@game_teams.fewest_tackles('20162017')).to eq("16")
       
-      index = @teams.team_id.find_index(@game_teams.least_tackles('20172018'))
+      index = @teams.team_id.find_index(@game_teams.fewest_tackles('20172018'))
       expect(@teams.teamname[index]).to eq("New England Revolution")
-      expect(@game_teams.least_tackles('20172018')).to eq("16")
+      expect(@game_teams.fewest_tackles('20172018')).to eq("16")
       end
     end
   end
