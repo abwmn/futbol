@@ -1,14 +1,4 @@
-require 'csv'
-require_relative 'games'
-require_relative 'league'
-require_relative 'game_teams'
-require_relative 'banana'
-
-class StatTracker < Banana
-  attr_reader :games,
-              :teams,
-              :game_teams
-
+class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
@@ -56,60 +46,58 @@ class StatTracker < Banana
   end
 
   def best_offense
-    index = @teams.team_id.find_index(@game_teams.best_offense)
-    @teams.teamname[index]
+    get_teamname(@game_teams.best_offense)
   end
 
   def worst_offense
-    index = @teams.team_id.find_index(@game_teams.worst_offense)
-    @teams.teamname[index]
+    get_teamname(@game_teams.worst_offense)
   end
 
   def highest_scoring_visitor 
-    index = @teams.team_id.find_index(@game_teams.highest_scoring_visitor)
-    @teams.teamname[index]
+    get_teamname(@game_teams.highest_scoring_visitor)
+
   end
 
   def lowest_scoring_visitor
-    index = @teams.team_id.find_index(@game_teams.lowest_scoring_visitor)
-    @teams.teamname[index]
+    get_teamname(@game_teams.lowest_scoring_visitor)
   end
 
   def highest_scoring_home_team 
-    index = @teams.team_id.find_index(@game_teams.highest_scoring_home_team)
-    @teams.teamname[index]
+    get_teamname(@game_teams.highest_scoring_home_team)
   end
 
   def lowest_scoring_home_team
-    index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)
-    @teams.teamname[index]
+    get_teamname(@game_teams.lowest_scoring_home_team)
   end
 
-  def winningest_coach(season_id)
-    @game_teams.winningest_coach(season_id)
+  def winningest_coach(season)
+    @game_teams.winningest_coach(season)
   end
 
-  def worst_coach(season_id)
-    @game_teams.worst_coach(season_id)
+  def worst_coach(season)
+    @game_teams.worst_coach(season)
   end
 
   def least_accurate_team(season)
-    index = @teams.team_id.find_index(@game_teams.least_accurate_team(season))
-    @teams.teamname[index]
+    get_teamname(@game_teams.least_accurate_team(season))
   end
 
   def most_accurate_team(season)
-    index = @teams.team_id.find_index(@game_teams.most_accurate_team(season))
-    @teams.teamname[index]
+    get_teamname(@game_teams.most_accurate_team(season))
   end
 
   def most_tackles(season)
-    index = @teams.team_id.find_index(@game_teams.most_tackles(season))
-    @teams.teamname[index]
+    get_teamname(@game_teams.most_tackles(season))
   end
 
   def least_tackles(season)
-    index = @teams.team_id.find_index(@game_teams.least_tackles(season))
+    get_teamname(@game_teams.least_tackles(season))
+  end
+
+  # Helper method
+
+  def get_teamname(method)
+    index = @teams.team_id.find_index(method)
     @teams.teamname[index]
   end
 end
