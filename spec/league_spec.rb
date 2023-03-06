@@ -20,12 +20,8 @@ RSpec.describe League do
   describe 'league' do
     it 'exists with attributes' do
       expect(@league).to be_a(League)
-    end
-  end
-  
-  describe 'count_of_teams' do
-    it 'count_of_teams' do
-      expect(@league.count_of_teams).to eq(32)
+      expect(@league.team_id).to be_a(Array)
+      expect(@league.team_info("18")).to be_a(Hash)
     end
   end
 end

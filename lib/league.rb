@@ -9,12 +9,8 @@ class League < StatBook
     super(file)
   end
 
-  def count_of_teams
-    @team_id.count
-  end
-
   def team_info(team)
-    index = index(team)
+    index = @team_id.find_index(team)
     team_info = {
       'team_id' => team,
       'franchise_id' => @franchiseid[index],
@@ -22,12 +18,6 @@ class League < StatBook
       'abbreviation' => @abbreviation[index],
       'link' => @link[index]
     }
-  end
-
-  ## Helper Method ##
-  
-  def index(team)
-    @team_id.find_index(team)
   end
 end
 

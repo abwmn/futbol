@@ -50,12 +50,6 @@ RSpec.describe StatTracker do
     it 'average_goals_per_game' do
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
-  end
-
-  describe 'league_stats' do
-    it 'count_of_teams' do
-      expect(@stat_tracker.count_of_teams).to eq(32)
-    end
 
     it 'best_offense' do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
