@@ -192,7 +192,6 @@ RSpec.describe StatTracker do
         :total_goals_scored=>47, 
         :win_percentage=>0.6, 
         :wins=>12})
-    
     end
   end
 end
