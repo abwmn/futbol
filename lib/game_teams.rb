@@ -106,10 +106,6 @@ class GameTeams < StatBook
     h2h
   end
 
-  # Record (as a hash - win/loss) against all 
-  #opponents with the opponents’ names as keys and 
-  #the win percentage against that opponent as a value.	Hash
-
   def seasonal_summary(team)
 
   end

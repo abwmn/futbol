@@ -20,7 +20,3 @@ class League < StatBook
     }
   end
 end
-
-# Method	Description	Return Value
-# seasonal_summary	
-    # For each season that the team has played, a hash that has two keys (:regular_season and :postseason), that each point to a hash with the following keys: :win_percentage, :total_goals_scored, :total_goals_against, :average_goals_scored, :average_goals_against.	Hash
