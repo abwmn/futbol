@@ -90,14 +90,73 @@ class StatTracker
     get_teamname(@game_teams.most_tackles(season))
   end
 
-  def least_tackles(season)
-    get_teamname(@game_teams.least_tackles(season))
+  def fewest_tackles(season)
+    get_teamname(@game_teams.fewest_tackles(season))
+  end
+
+  def team_info(team)
+    @teams.team_info(team)
+  end
+
+  def best_season(team)
+    @game_teams.best_season(team)
+  end
+
+  def worst_season(team)
+    @game_teams.worst_season(team)
+  end
+
+  def average_win_percentage(team)
+    @game_teams.average_win_percentage(team)
+  end
+
+  def most_goals_scored(team)
+    @game_teams.most_goals_scored(team)
+  end
+
+  def fewest_goals_scored(team)
+    @game_teams.fewest_goals_scored(team)
+  end
+
+  def favorite_opponent(team)
+    get_teamname(@game_teams.favorite_opponent(team))
+  end
+
+  def rival(team)
+    get_teamname(@game_teams.rival(team))
+  end
+
+  def biggest_team_blowout(team)
+    @game_teams.biggest_team_blowout(team)
+  end
+
+  def worst_loss(team)
+    @game_teams.worst_loss(team)
+  end
+
+  def head_to_head(team)
+    h2h = @game_teams.head_to_head(team)
+    h2h.transform_keys do |team|
+      get_teamname(team)
+    end
+  end
+
+  def seasonal_summary(team)
+
   end
 
   # Helper method
 
-  def get_teamname(method)
-    index = @teams.team_id.find_index(method)
+  def get_teamname(team)
+    index = @teams.team_id.find_index(team)
     @teams.teamname[index]
   end
 end
+
+# seasonal_summary	
+    # For each season that the team has played, 
+    # a hash that has two keys 
+    #(:regular_season and :postseason), 
+    #that each point to a hash with the following keys:
+    #:win_percentage, :total_goals_scored, :total_goals_against, 
+    #:average_goals_scored, :average_goals_against
