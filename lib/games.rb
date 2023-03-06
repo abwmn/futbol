@@ -80,4 +80,53 @@ class Games < StatReader
     end
     goals.fdiv(hero).round(2)
   end
+
+  def seasonal_summary(team)
+    szn_sum = super_nested_hash
+    (0..hero).each do |i|
+      if team == @away_team_id[i] || team == @home_team_id[i]
+        h, a = @home_goals[i].to_i, @away_goals[i].to_i
+        if @type[i] == 'Regular Season'
+          szn = szn_sum[@season[i]][:regular_season]
+          szn[:games] += 1
+          if team == @home_team_id[i]
+            szn[:total_goals_scored] += h
+            szn[:total_goals_against] += a
+            szn[:wins] += 1 if h > a
+          else
+            szn[:total_goals_scored] += a
+            szn[:total_goals_against] += h
+            szn[:wins] += 1 if a > h
+          end
+        elsif @type[i] == 'Postseason'
+          szn = szn_sum[@season[i]][:postseason]
+          szn[:games] += 1
+          if team == @home_team_id[i]
+            szn[:total_goals_scored] += h
+            szn[:total_goals_against] += a
+            szn[:wins] += 1 if h > a
+          else
+            szn[:total_goals_scored] += a
+            szn[:total_goals_against] += h
+            szn[:wins] += 1 if a > h
+          end
+        end
+      end
+    end
+    season_stats(szn_sum)
+  end
+  def season_stats(szn_sum)
+    szn_sum.each do |season, stats|
+      rglr = stats[:regular_season]
+      post = stats[:postseason]
+
+      rglr[:win_percentage] = rglr[:wins].fdiv(rglr[:games]).round(3)
+      rglr[:average_goals_against] = rglr[:total_goals_against].fdiv(rglr[:games]).round(2)
+      rglr[:average_goals_scored] = rglr[:total_goals_scored].fdiv(rglr[:games]).round(2)
+      post[:win_percentage] = post[:wins].fdiv(post[:games]).round(3)
+      post[:average_goals_against] = post[:total_goals_against].fdiv(post[:games]).round(2)
+      post[:average_goals_scored] = post[:total_goals_scored].fdiv(post[:games]).round(2)
+    end
+    szn_sum
+  end
 end
