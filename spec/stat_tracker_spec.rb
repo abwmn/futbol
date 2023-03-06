@@ -139,5 +139,39 @@ RSpec.describe StatTracker do
     it "#fewest_goals_scored" do
       expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
     end
+
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+  
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+    end
+
+    it "blowout" do
+      expect(@stat_tracker.biggest_team_blowout("18")).to eq(5)
+      expect(@stat_tracker.biggest_team_blowout("54")).to eq(5)
+      expect(@stat_tracker.biggest_team_blowout("3")).to eq(4)
+    end
+
+    it 'bust' do
+      expect(@stat_tracker.worst_loss("18")).to eq(4)
+      expect(@stat_tracker.worst_loss("54")).to eq(4)
+      expect(@stat_tracker.worst_loss("3")).to eq(5)
+    end
+
+    it 'h2h' do
+      atl_expected = {
+          wins: 5,
+          loss: 4,
+          draws: 1,
+          games: 10,
+          win_pct: 0.5
+      }
+      expect(@stat_tracker.head_to_head("7")).to be_a(Hash)
+      expect(@stat_tracker.head_to_head("24")["Reign FC"][:win_pct]).to be_a(Float)
+      expect(@stat_tracker.head_to_head("18")["Utah Royals FC"][:win_pct]).to eq(0.6)
+      expect(@stat_tracker.head_to_head("30")["Atlanta United"]).to eq(atl_expected)
+    end
   end
 end
